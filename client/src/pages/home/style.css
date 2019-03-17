@@ -1,0 +1,30 @@
+h1 {
+    color:  #49496e;
+}
+
+.jumbotron {
+    background-color: orange;
+}
+
+.start-btns {
+    background-color: orange /* #49496e */;
+    color: black /* white */; 
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.start-btns:hover {
+    background-color: white /* rgb(174, 179, 184) */;
+    color: rgb(34, 33, 33);
+}
+
+@media(max-width: 900px) {
+    #logo_home {
+        height: 150px;
+        width: 500px;
+    }
+
+    .lead {
+        text-align: center;
+    }
+}

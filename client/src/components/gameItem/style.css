@@ -1,0 +1,35 @@
+.game-list {
+    overflow: scroll;
+    height: 500px;
+    border: 2px solid gray;
+}
+
+.card-background {
+    background-color: #49496e;
+    color: white;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+p {
+    margin-bottom: 1px;
+}
+
+.card-background:hover {
+    background-color: rgb(174, 179, 184);
+    color: rgb(34, 33, 33);
+}
+
+.btn-leave {
+    background-color:#e91010;
+}
+
+.btn-join {
+    background-color:rgb(46, 195, 46);
+}
+
+.btn-full {
+    background-color: gray;
+}

@@ -1,0 +1,27 @@
+.divCard {
+    max-height: 500px;
+    overflow: scroll;
+    margin-bottom: 3px;
+}
+
+.commentDiv {
+    white-space: nowrap;
+    background-color: rgb(46, 195, 46);
+    border: 2px solid darkgrey;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.commentP {
+    margin-bottom: 1px;
+    padding-left: 6px;
+}
+
+.commentBtn {
+    background-color: #49496e;
+    margin: auto;
+}
+
+textarea {
+    width: 100%;
+}

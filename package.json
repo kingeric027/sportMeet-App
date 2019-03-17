@@ -1,0 +1,46 @@
+{
+  "name": "sportmeet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "node server.js",
+    "start:dev": "concurrently \"nodemon --ignore 'client/*'\" \"npm run client\"",
+    "client": "cd client && npm run start",
+    "seed": "node scripts/seedDB.js",
+    "install": "cd client && npm install",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kingeric027/sportMeet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.7"
+  },
+  "bugs": {
+    "url": "https://github.com/kingeric027/sportMeet/issues"
+  },
+  "homepage": "https://github.com/kingeric027/sportMeet#readme",
+  "dependencies": {
+    "auth0-js": "^9.10.0",
+    "express": "^4.16.4",
+    "express-jwt": "^5.3.1",
+    "history": "^4.7.2",
+    "if-env": "^1.0.4",
+    "jwks-rsa": "^1.4.0",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.16",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
+    "react-geocode": "^0.1.2",
+    "react-google-autocomplete": "^1.0.18",
+    "react-google-maps": "^9.4.5"
+  }
+}

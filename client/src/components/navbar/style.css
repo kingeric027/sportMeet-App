@@ -1,0 +1,20 @@
+nav {
+    background-color: orange /* #49496e */;
+    margin-bottom: 5px;
+}
+
+.log-btn {
+    background-color:  rgb(174, 179, 184);
+    color:rgb(34, 33, 33);
+}
+
+.log-btn:hover {
+    background-color: #49496e;
+    color: white;
+
+}
+
+#logo_navbar {
+    height: 50px;
+    width: 100px;
+}
