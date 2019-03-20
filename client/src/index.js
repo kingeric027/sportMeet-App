@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import history from './components/history/index';
-
 import {BrowserRouter} from 'react-router-dom';
 
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import {Row, Col, Container} from "../../components/Grid";
 import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
-import {CommentList, CommentListItem} from '../../components/comments/index';
 import auth0Client from "../../Auth/authentication";
 import moment from 'moment';
 import "./style.css";
@@ -81,7 +80,8 @@ class ThisGame extends Component {
                             <h5>{moment(this.state.game.date).format("MMM Do YYYY")}, {this.state.game.time}</h5>
                             <h5>{this.state.game.address}</h5>
                             <p>Skill Level: {this.state.game.skill}</p>
-                            <ul>Players:
+                            <p>Players:</p>
+                            <ul>
                                 {this.state.playersArray.map(p =>{
                                     return (
                                         <li>{p}</li>
@@ -120,7 +120,7 @@ class ThisGame extends Component {
                                 placeholder = "Chat!">
                                 </textarea>
 
-                            <button type="button" class="btn btn-primary btn-block commentBtn" onClick = {this.handleComment}>Submit</button>
+                            <button type="button" class="btn btn-block commentBtn" onClick = {this.handleComment}>Submit</button>
                     </Col>
                 </Row>
                     

@@ -1,14 +1,3 @@
-/*@media(min-width: 905px) {
-    .container {
-        align-content: center;
-    }
-}
-
-@media(max-width: 900px) {
-    form {
-        text-align: center;
-    } 
-} */
 
 .startForm {
     text-align: center;
@@ -18,5 +7,20 @@
 }
 
 .startHeader {
-    text-align: center;
+    font-style: italic;
+}
+
+hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.submit-btn {
+    color: white;
+    background-color: #49496e;
+}
+
+.submit-btn:hover {
+    color: black;
+    background-color: rgb(174, 179, 184);
 }

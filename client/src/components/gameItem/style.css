@@ -20,6 +20,11 @@ p {
 .card-background:hover {
     background-color: rgb(174, 179, 184);
     color: rgb(34, 33, 33);
+    text-decoration: none;
+}
+
+.game-link:hover {
+    text-decoration: none;
 }
 
 .btn-leave {

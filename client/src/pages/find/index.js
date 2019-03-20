@@ -6,8 +6,8 @@ import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
 import Map from "../../components/findMap";
 import auth0Client from "../../Auth/authentication";
-
 import {GameList, GameListItem} from '../../components/gameItem';
+import "./style.css";
 
 class Find extends Component {
     state = {
@@ -66,7 +66,8 @@ class Find extends Component {
         <div>
             <Navbar></Navbar>
             <Container>
-                <h3>Upcoming Games</h3>
+                <h3 className = "findHeader"><strong>Upcoming Games</strong></h3>
+                <hr></hr>
                 <Row>
                     <Col size="md-4">
                         <GameList>

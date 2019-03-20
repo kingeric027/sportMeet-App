@@ -211,7 +211,7 @@ const AsyncMap = withScriptjs(
 {this.state.windowLocation.lat && 
 <InfoWindow
 onClose = {this.onInfoWindowClose}
-position={{ lat: ( this.state.windowLocation.lat + 0.0018 ), lng: this.state.windowLocation.lng }}
+position={{ lat: ( this.state.windowLocation.lat + 0.025 ), lng: this.state.windowLocation.lng }}
 >
   <div>
         <span style={{ padding: 0, margin: 0 }}>

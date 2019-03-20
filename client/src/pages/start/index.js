@@ -97,7 +97,7 @@ class Start extends Component {
         const Button = withRouter(({ history }) => (
             <button
               type='button'
-              className = "btn btn-primary btn-lg btn-block"
+              className = "btn submit-btn btn-lg btn-block"
              onClick={() => {this.onSubmit(); history.push('/find') }} 
             >
               Submit
@@ -107,8 +107,8 @@ class Start extends Component {
         <div>
             <Navbar></Navbar>
             <div className = "container">
-                <h3 className = "startHeader">Start a Game</h3>
-            <br></br>
+                <h3 className = "startHeader"><strong>Start a Game</strong></h3>
+            <hr></hr>
             {this.state.formToggle===0 ?(
                 <form className = "startForm">
                 <label htmlFor="sport">Sport: </label>

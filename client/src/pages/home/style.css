@@ -1,9 +1,16 @@
-h1 {
-    color:  #49496e;
-}
 
 .jumbotron {
     background-color: orange;
+}
+
+img {
+    display: block;
+    margin: auto;
+    max-width: 100%;
+}
+
+.lead {
+    text-align: center;
 }
 
 .start-btns {
@@ -15,16 +22,22 @@ h1 {
 
 .start-btns:hover {
     background-color: white /* rgb(174, 179, 184) */;
+    border: 3px solid orange;
     color: rgb(34, 33, 33);
+    text-decoration: none;
 }
 
-@media(max-width: 900px) {
+a:hover {
+    text-decoration: none;
+}
+
+/*@media(max-width: 900px) {
     #logo_home {
         height: 150px;
         width: 500px;
-    }
+    } 
 
     .lead {
         text-align: center;
     }
-}
+} */

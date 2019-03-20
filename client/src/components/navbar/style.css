@@ -3,6 +3,10 @@ nav {
     margin-bottom: 5px;
 }
 
+.navbar {
+    padding: 0px;
+}
+
 .log-btn {
     background-color:  rgb(174, 179, 184);
     color:rgb(34, 33, 33);

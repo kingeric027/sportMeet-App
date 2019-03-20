@@ -29,7 +29,8 @@ export function GameList({ children }) {
     } 
 
     const GameLink = withRouter(({ history }) => (
-      <Link
+      <Link 
+        className = "game-link"
         onClick={() => { history.push("/find") }}
         to ={"/games/" + props.id}
       >
