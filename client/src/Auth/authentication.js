@@ -5,8 +5,8 @@ import auth0 from 'auth0-js';
         this.auth0 = new auth0.WebAuth({
           domain: 'kingeric.auth0.com',
           audience: 'https://kingeric.auth0.com/userinfo',
-          clientID: 'RgypgNKbpL15E9tPKlmrOYbnEGfaX9UJ',
-          redirectUri: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/callback' : 'https://sheltered-beyond-48534.herokuapp.com/callback',
+          clientID: 'rXCuA1B5sRN4jIkKSeseu3WGeET4xWoS',
+          redirectUri: process.env.NODE_ENV === 'development' ? 'http://localhost:3000/callback' : 'https://safe-journey-28682.herokuapp.com/callback',
           responseType: 'id_token',
           scope: 'openid profile'
         });
@@ -61,7 +61,7 @@ import auth0 from 'auth0-js';
       signOut() {
         this.auth0.logout({
           returnTo: 'http://localhost:3000',
-          clientID: 'RgypgNKbpL15E9tPKlmrOYbnEGfaX9UJ',
+          clientID: 'rXCuA1B5sRN4jIkKSeseu3WGeET4xWoS',
         });
       }
 

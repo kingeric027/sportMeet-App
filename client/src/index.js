@@ -19,7 +19,7 @@ const checkJwt = jwt({
         jwksUri: `https://kingeric.auth0.com/.well-known/jwks.json`
 }),
   // Validate the audience and the issuer.
-  audience: 'RgypgNKbpL15E9tPKlmrOYbnEGfaX9UJ',
+  audience: 'rXCuA1B5sRN4jIkKSeseu3WGeET4xWoS',
   issuer: `https://kingeric.auth0.com/`,
   algorithms: ['RS256']
 });
