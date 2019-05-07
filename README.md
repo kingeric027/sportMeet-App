@@ -3,8 +3,6 @@ The intent of this application is to give people an avenue to become more involv
 
 We hope that our app will assist in bring people and communities together by channeling the power of the internet to bring people together in person with a little competition. 
 
-From us at SportMeet, LLC, we present out app, SportMeet.
-
 ## Getting Started
 
 ### Prerequisites
@@ -20,7 +18,7 @@ From us at SportMeet, LLC, we present out app, SportMeet.
 * Open http://localhost:3000 to view it in the browser.
 
 ## Deployment
-* [SportMeet on Heroku](https://sheltered-beyond-48534.herokuapp.com/)
+* [SportMeet on Heroku](https://safe-journey-28682.herokuapp.com/)
 
 ## Built With
 * MERN stack
@@ -41,7 +39,7 @@ Please make sure to update tests as appropriate.
 * **Lydia Nyagitari** - Developer, Secondary Tester - [Portfolio](https://lydianyagitari.github.io/), [GitHub](https://github.com/lydianyagitari)
 
 ## Heroku Link
-* https://sheltered-beyond-48534.herokuapp.com/
+* https://safe-journey-28682.herokuapp.com/
 
 ## License
 * [MIT](https://choosealicense.com/licenses/mit/)
