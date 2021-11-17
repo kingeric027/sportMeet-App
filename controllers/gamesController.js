@@ -2,7 +2,6 @@ const db = require("../models");
 const moment = require('moment');
 const current = moment();
 
-// Defining methods for the booksController
 module.exports = {
   findAll: function(req, res) {  //return all games
     db.Game

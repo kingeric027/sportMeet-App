@@ -42,9 +42,8 @@ class Start extends Component {
 
  
     
-    //function for submitting the data (still needs to be done)
+    //function for submitting the data
     onSubmit = () => {
-        console.log("submit");
         
         const data = {
             sport: this.state.sport,
@@ -59,6 +58,7 @@ class Start extends Component {
             comments: this.state.comments
             
         }
+        console.log("game")
         console.log(data);
         API.saveGame(data);
         

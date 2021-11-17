@@ -24,25 +24,14 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(routes);
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/client";
 
+// zaLMePlyvpvfrIV7
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://kingeric027:zaLMePlyvpvfrIV7@cluster0.xpt8e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 mongoose.set('useCreateIndex', true)
-
-// If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://mongolab-infinite-81177/googlebooks";
-// mongoose.connect(MONGODB_URI, {useNewUrlParser:true});
-
-// // mongoose.connect(
-//   process.env.MONGODB_URI || "mongodb://localhost/games", 
-//   {
-//     useMongoClient: true,
-//     useNewUrlParser:true
-//   }
-// );
 
 // Start the API server
 app.listen(process.env.PORT || 3001, () => console.log('Server has started'));
