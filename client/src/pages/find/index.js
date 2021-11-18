@@ -1,10 +1,9 @@
 
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { Row, Col, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
-import Map from "../../components/findMap";
+import FindGameMap from "../../components/Maps/FindMap";
 import auth0Client from "../../Auth/authentication";
 import { GameList, GameListItem } from '../../components/gameItem';
 import "./style.css";
@@ -87,26 +86,23 @@ class Find extends Component {
                                             UpdateFunction={() => this.updateGame(index)} //Need to decrease players by one
                                         >
                                         </GameListItem>
-
                                     )
                                 })}
                             </GameList>
                         </Col>
-
                         <Col size="md-8">
                             <div>
-                                <Map
+                                <FindGameMap
                                     gamesArray={this.state.games}
                                     google={this.props.google}
                                     center={{ lat: 44.9740, lng: -93.227 }}
                                     height='300px'
                                     zoom={10}
                                 >
-                                </Map>
+                                </FindGameMap>
                             </div>
                         </Col>
                     </Row>
-
                 </Container>
             </div>
         )

@@ -4,7 +4,6 @@ import auth0 from 'auth0-js';
 import history from './history';
 
 export default class Auth {
-  // Please use your own credentials here
   auth0 = new auth0.WebAuth({
     domain: 'sportmeet.auth0.com',
     clientID: 'Do2ia71b03qsQyZia46TINdn6sHJI5tn',
@@ -59,3 +58,4 @@ export default class Auth {
     let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
     return new Date().getTime() < expiresAt;
   }
+}

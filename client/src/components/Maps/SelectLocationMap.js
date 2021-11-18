@@ -1,29 +1,27 @@
 import React from 'react'
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
+import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
+import "./Map.css";
 Geocode.setApiKey("AIzaSyCyfDoFnHAEssmLqnPDD_5qwrNyQk-8_nw");
 Geocode.enableDebug();
-class Map extends React.Component{
+class SelectLocationMap extends React.Component{
 constructor( props ){
   super( props );
   this.state = {
    address: '',
+   city: '',
+   area: '',
+   state: '',
    mapPosition: {
     lat: this.props.center.lat,
     lng: this.props.center.lng
-  },
+   },
    markerPosition: {
     lat: this.props.center.lat,
     lng: this.props.center.lng
-  },
-  games: this.props.gamesArray,
-
-  windowLocation: {
-    lat: null,
-    lng: null
-  },
-  markerGame: null
-
+},
+activeMarker:{}
   }
  }
 /**
@@ -31,15 +29,19 @@ constructor( props ){
   */
 
  componentDidMount(){
-   console.log(this.props.gamesArray)
   if (navigator && navigator.geolocation){
       navigator.geolocation.getCurrentPosition(pos => {
           const coords = pos.coords;
           Geocode.fromLatLng( coords.latitude, coords.longitude).then(
               response => { 
                   const address = response.results[0].formatted_address;
+                  this.props.onMapChange(coords.latitude, coords.longitude, address);
                   this.setState({
                       address: ( address ) ? address : '',
+                      markerPosition: {
+                          lat: coords.latitude,
+                          lng: coords.longitude
+                      },
                       mapPosition: {
                         lat: coords.latitude,
                         lng: coords.longitude
@@ -52,18 +54,48 @@ constructor( props ){
       Geocode.fromLatLng(this.props.center.lat, this.props.center.lng).then(
           response => {
               const address = response.results[0].formatted_address;
+              this.props.onMapChange(this.props.center.lat, this.props.center.lng, address);
               this.setState( {
                   address: ( address ) ? address : '',
                   mapPosition: {
                     lat: this.props.center.lat,
                     lng: this.props.center.lng,
                   },
+                  markerPosition: {
+                    lat: this.props.center.lat,
+                    lng: this.props.center.lng
+                  }
               });
           }
       )
   }
 }
 
+  /*
+ componentDidMount() {
+  Geocode.fromLatLng( this.state.mapPosition.lat , this.state.mapPosition.lng ).then(
+   response => {
+    const address = response.results[0].formatted_address,
+     addressArray =  response.results[0].address_components,
+     city = this.getCity( addressArray ),
+     area = this.getArea( addressArray ),
+     state = this.getState( addressArray );
+  
+    console.log( 'city', city, area, state );
+  
+    this.setState( {
+     address: ( address ) ? address : '',
+     area: ( area ) ? area : '',
+     city: ( city ) ? city : '',
+     state: ( state ) ? state : '',
+    } )
+   },
+   error => {
+    console.error(error);
+   }
+  );
+ };
+*/
 
 /**
   * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
@@ -78,8 +110,7 @@ constructor( props ){
    this.state.address !== nextState.address ||
    this.state.city !== nextState.city ||
    this.state.area !== nextState.area ||
-   this.state.state !== nextState.state ||
-   this.state.windowLocationm !== nextState.windowLocation
+   this.state.state !== nextState.state
   ) {
    return true
   } else if ( this.props.center.lat === nextProps.center.lat ){
@@ -155,8 +186,31 @@ constructor( props ){
   * When the user types an address in the search box
   * @param place
   */
-
-
+ onPlaceSelected = ( place ) => {
+const address = place.formatted_address,
+   addressArray =  place.address_components,
+   city = this.getCity( addressArray ),
+   area = this.getArea( addressArray ),
+   state = this.getState( addressArray ),
+   latValue = place.geometry.location.lat(),
+   lngValue = place.geometry.location.lng();
+   this.props.onMapChange(latValue, lngValue, address);
+// Set these values in the state.
+  this.setState({
+   address: ( address ) ? address : '',
+   area: ( area ) ? area : '',
+   city: ( city ) ? city : '',
+   state: ( state ) ? state : '',
+   markerPosition: {
+    lat: latValue,
+    lng: lngValue
+   },
+   mapPosition: {
+    lat: latValue,
+    lng: lngValue
+   },
+  })
+ };
 /**
   * When the marker is dragged you get the lat and long using the functions available from event object.
   * Use geocode to get the address, city, area and state from the lat and lng positions.
@@ -164,19 +218,35 @@ constructor( props ){
   *
   * @param event
   */
- handleToggleOpen(games){
-   console.log('Clicked!');
-   console.log(this.state.windowLocation);
-  this.setState({
-    windowLocation : {
-      lat : games.location.lat,
-      lng : games.location.lng
-    },
-    markerGame: games		
-  })
-}
-
- 
+ onMarkerDragEnd = ( event ) => {
+  console.log( 'event', event );
+  let newLat = event.latLng.lat(),
+   newLng = event.latLng.lng(),
+   addressArray = [];
+Geocode.fromLatLng( newLat , newLng ).then(
+   response => {
+    const address = response.results[0].formatted_address,
+     addressArray =  response.results[0].address_components,
+     city = this.getCity( addressArray ),
+     area = this.getArea( addressArray ),
+     state = this.getState( addressArray );
+     this.props.onMapChange(newLat, newLng, address);
+this.setState( {
+     address: ( address ) ? address : '',
+     area: ( area ) ? area : '',
+     city: ( city ) ? city : '',
+     state: ( state ) ? state : '',
+     markerPosition: {
+       lat: newLat,
+       lng: newLng
+     }
+    } )
+   },
+   error => {
+    console.error(error);
+   }
+  );
+ };
 render(){
 const AsyncMap = withScriptjs(
    withGoogleMap(
@@ -185,7 +255,7 @@ const AsyncMap = withScriptjs(
       defaultZoom={this.props.zoom}
       defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
      >
-      {/* For Auto complete Search Box 
+      {/* For Auto complete Search Box */}
       <Autocomplete
        style={{
         width: '100%',
@@ -196,31 +266,24 @@ const AsyncMap = withScriptjs(
        }}
        onPlaceSelected={ this.onPlaceSelected }
        types={['geocode']}
-      />  */}
-{/*Marker. Need to get a marker for each game*/}
-{this.props.gamesArray.map( (games, index) => (
-    <Marker
-    draggable = {false}
-      position={{ lat: games.location.lat, lng: games.location.lng }}
-      onClick={() => this.handleToggleOpen(games)}
-      key={index}
       />
-))}
-
-{this.state.windowLocation.lat && 
-<InfoWindow
-onClose = {this.onInfoWindowClose}
-position={{ lat: ( this.state.windowLocation.lat + 0.025 ), lng: this.state.windowLocation.lng }}
->
-  <div>
-        <span style={{ padding: 0, margin: 0 }}>
-        <p>{this.state.markerGame.sport}</p>
-        <p>{this.state.markerGame.address}</p>
-        </span>
-    </div>
-</InfoWindow>
-} 
-
+{/*Marker*/}
+  <Marker google={this.props.google}
+       name={'Dolores park'}
+          draggable={this.props.dragMarker}
+          onDragEnd={ this.onMarkerDragEnd }
+             position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+      />
+<Marker />
+{/* InfoWindow on top of marker */}
+      <InfoWindow
+       onClose={this.onInfoWindowClose}
+       position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}
+      >
+       <div>
+        <span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>
+       </div>
+    </InfoWindow>
 </GoogleMap>
 )
    )
@@ -230,19 +293,20 @@ let map;
    map = <div>
      <div>
       <div className="form-group">
-       <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
+      {/* <label className = "label" htmlFor="">Address</label> */}
+       <input type="text" name="address" className="input form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
       </div>
      </div>
      <AsyncMap
       googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyCyfDoFnHAEssmLqnPDD_5qwrNyQk-8_nw&libraries=places"
       loadingElement={
-       <div style={{ height: `100%` }} />
+       <div className = "loadingElement" style={{ height: `100%` }} />
       }
       containerElement={
-       <div style={{ height: this.props.height }} />
+       <div className = "containerElement" style={{ height: this.props.height }} />
       }
       mapElement={
-       <div style={{ height: `100%` }} />
+       <div style={{ height: `85%` }} />
       }
      />
     </div>
@@ -252,4 +316,4 @@ let map;
   return( map )
  }
 }
-export default Map
+export default SelectLocationMap

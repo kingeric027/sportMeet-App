@@ -10,10 +10,9 @@ const PORT = process.env.PORT || 3001;
 
 
 const app = express();
-//var router = require("./routes/index.js");
 
 // Define middleware here
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Serve up static assets (usually on heroku)
@@ -25,9 +24,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 
-// zaLMePlyvpvfrIV7
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://kingeric027:zaLMePlyvpvfrIV7@cluster0.xpt8e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
@@ -36,5 +33,5 @@ mongoose.set('useCreateIndex', true)
 // Start the API server
 app.listen(process.env.PORT || 3001, () => console.log('Server has started'));
 {
-  console.log ("yayy it works")
-  }
+  console.log("yayy it works")
+}
