@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import { Row, Col, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
-import auth0Client from "../../Auth/authentication";
 import moment from 'moment';
 import "./style.css";
+import { useAuth0 } from "@auth0/auth0-react";
 class ThisGame extends Component {
     state = {
         game: {},
@@ -15,8 +15,9 @@ class ThisGame extends Component {
     };
 
     componentDidMount() {
-        if (!auth0Client.isAuthenticated()) {
-            auth0Client.signIn();
+        const {isAuthenticated, loginWithRedirect} = useAuth0()
+        if (!isAuthenticated) {
+            loginWithRedirect()
         }
         this.loadGame();
     }
@@ -52,7 +53,7 @@ class ThisGame extends Component {
 
     handleComment = (e) => {
         e.preventDefault();
-        const user = auth0Client.getProfile().name;
+        const {user} = useAuth0()
         const gameToChange = this.state.game;
         gameToChange.comments.push({
             user: user,

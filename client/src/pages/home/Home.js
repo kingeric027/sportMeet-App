@@ -1,15 +1,16 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import auth0Client from '../../Auth/authentication';
 import "./style.css";
 
 
 class Home extends Component {
-    componentDidMount(){
-        if(!auth0Client.isAuthenticated()){
-            auth0Client.signIn();
-        }
-    }
+    // auth0 = useAuth0()
+    // componentDidMount(){
+    //     if(!auth0.isAuthenticated){
+    //         auth0.loginWithRedirect()
+    //     }
+    // }
     render() {
         return (
         <div>

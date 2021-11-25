@@ -3,9 +3,9 @@ import { withRouter } from "react-router-dom";
 import Navbar from "../../components/navbar/index";
 import SelectLocationMap from "../../components/Maps/SelectLocationMap";
 import API from "../../utils/API";
-import auth0Client from '../../Auth/authentication';
 import moment from 'moment';
 import "./style.css"
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 class Start extends Component {
@@ -80,12 +80,13 @@ class Start extends Component {
     }
 
     componentDidMount() {
-        if (auth0Client.getProfile()) {
+        const {user, loginWithRedirect} = useAuth0()
+        if (user) {
             this.setState({
-                user: auth0Client.getProfile().name
+                user: user.name
             })
         } else {
-            auth0Client.signIn();
+            loginWithRedirect();
         }
     };
 

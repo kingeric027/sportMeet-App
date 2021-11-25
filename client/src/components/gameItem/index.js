@@ -3,7 +3,7 @@ import React from "react";
 import { Container, Row, Col } from "../Grid";
 import moment from 'moment';
 import { Link, withRouter } from 'react-router-dom';
-import auth0Client from "../../Auth/authentication";
+import { useAuth0 } from "@auth0/auth0-react";
 import './style.css';
 
 export function GameList({ children }) {
@@ -13,7 +13,8 @@ export function GameList({ children }) {
 export function GameListItem(
   props
 ) {
-  const currentUser = auth0Client.getProfile().name;
+  const { user } = useAuth0();
+  const currentUser = user.name
 
   const Button = () => {
     if (props.playersArray.includes(currentUser)) {

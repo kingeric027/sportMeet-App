@@ -4,9 +4,9 @@ import { Row, Col, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
 import FindGameMap from "../../components/Maps/FindMap";
-import auth0Client from "../../Auth/authentication";
 import { GameList, GameListItem } from '../../components/gameItem';
 import "./style.css";
+import { useAuth0 } from "@auth0/auth0-react";
 
 class Find extends Component {
     state = {
@@ -14,8 +14,9 @@ class Find extends Component {
     };
 
     componentDidMount() {
-        if (!auth0Client.isAuthenticated()) {
-            auth0Client.signIn();
+        const {isAuthenticated, loginWithRedirect} = useAuth0()
+        if (!isAuthenticated) {
+            loginWithRedirect()
         }
         this.loadGames();
         console.log(this.state.games);
@@ -25,8 +26,6 @@ class Find extends Component {
         console.log("GET REQUEST")
         API.getFutureGames()
             .then(res => {
-                console.log(res)
-                debugger
                 this.setState({ games: res.data })
             })
             .catch(err => console.log(err));
@@ -41,9 +40,10 @@ class Find extends Component {
 
 
     updateGame = index => {
-        const user = auth0Client.getProfile().name;
-        if (!auth0Client.isAuthenticated()) {  //If not logged in make user log in before joining game.
-            auth0Client.signIn();
+        const {isAuthenticated, loginWithRedirect, user} = useAuth0()
+        const user = user.name;
+        if (!isAuthenticated) {  //If not logged in make user log in before joining game.
+            loginWithRedirect()
         }
         const gameToChange = this.state.games[index];
         if (gameToChange.playersArray.includes(user)) {
