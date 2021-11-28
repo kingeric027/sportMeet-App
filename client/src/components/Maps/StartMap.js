@@ -29,7 +29,6 @@ export class MapContainer extends Component {
         activeMarker: marker,
         showingInfoWindow: true
       });
-      console.log("clicked");
     }
 
     onClose = props => {
@@ -45,8 +44,6 @@ export class MapContainer extends Component {
       const { latLng } = coord;  //latLng = coord.latLng
       const lat = latLng.lat();
       const lng = latLng.lng();
-      console.log("Latitude:" + lat);
-      console.log("Longitude:" + lng);
 
       this.setState(prevState => {
         const markers = [...this.state.markers];

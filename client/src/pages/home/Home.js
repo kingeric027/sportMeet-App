@@ -1,18 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { Component } from "react";
+import React, { Component, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
 
+const Home = () => {
 
-class Home extends Component {
-    // auth0 = useAuth0()
-    // componentDidMount(){
-    //     if(!auth0.isAuthenticated){
-    //         auth0.loginWithRedirect()
-    //     }
-    // }
-    render() {
-        return (
+    return (
         <div>
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
@@ -31,8 +24,7 @@ class Home extends Component {
             </Link>
             </div>
         </div>
-        )
-    }
+    )
 }
 
 export default Home;

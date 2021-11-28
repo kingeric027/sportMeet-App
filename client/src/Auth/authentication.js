@@ -28,18 +28,14 @@ import auth0 from 'auth0-js';
       }
 
       isAuthenticated() {
-        console.log("is Authenticated")
-        console.log(this.expiresAt)
         return new Date().getTime() < this.expiresAt;
       }
 
       signIn() {
-        debugger; 
         this.auth0.authorize();
       }
 
       handleAuthentication() {
-        console.log("handleAuthentication")
         return new Promise((resolve, reject) => {
           this.auth0.parseHash((err, authResult) => {
             if (err) return reject(err);
@@ -47,8 +43,6 @@ import auth0 from 'auth0-js';
               return reject(err);
             }
             this.idToken = authResult.idToken;
-            console.log("token")
-            console.log(this.idToken)
             this.profile = authResult.idTokenPayload;
             // set the time that the id token will expire at
             this.expiresAt = authResult.idTokenPayload.exp * 10000;
@@ -72,16 +66,8 @@ import auth0 from 'auth0-js';
       }
 
       silentAuth() {
-        debugger;
-        console.log("silent auth")
         return new Promise((resolve, reject) => {
           this.auth0.checkSession({}, (err, authResult) => {
-            debugger; 
-            console.log("err")
-            console.log(err)
-            console.log("authResult")
-            console.log(authResult)
-            debugger;
             if (err) return reject(err);
             this.setSession(authResult);
             resolve();

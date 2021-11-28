@@ -71,32 +71,6 @@ activeMarker:{}
   }
 }
 
-  /*
- componentDidMount() {
-  Geocode.fromLatLng( this.state.mapPosition.lat , this.state.mapPosition.lng ).then(
-   response => {
-    const address = response.results[0].formatted_address,
-     addressArray =  response.results[0].address_components,
-     city = this.getCity( addressArray ),
-     area = this.getArea( addressArray ),
-     state = this.getState( addressArray );
-  
-    console.log( 'city', city, area, state );
-  
-    this.setState( {
-     address: ( address ) ? address : '',
-     area: ( area ) ? area : '',
-     city: ( city ) ? city : '',
-     state: ( state ) ? state : '',
-    } )
-   },
-   error => {
-    console.error(error);
-   }
-  );
- };
-*/
-
 /**
   * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
   *
