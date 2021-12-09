@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../../components/navbar/index";
 import SelectLocationMap from "../../components/Maps/SelectLocationMap";
 import API from "../../utils/API";
@@ -10,7 +10,7 @@ import { useHistory } from "react-router";
 
 const Start = (props) => {
     const history = useHistory()
-    const { user, loginWithRedirect, isAuthenticated } = useAuth0()
+    const { user, loginWithRedirect } = useAuth0()
     const [startState, setStartState] = useState({})
 
     useEffect(() => {

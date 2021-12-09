@@ -33,5 +33,6 @@ mongoose.set('useCreateIndex', true)
 // Start the API server
 app.listen(process.env.PORT || 3001, () => console.log('Server has started'));
 {
+  console.log(process.env)
   console.log("yayy it works")
 }
