@@ -28,19 +28,15 @@
   },
   "homepage": "https://github.com/kingeric027/sportMeet#readme",
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "auth0-js": "^9.10.0",
+    "dotenv": "^10.0.0",
     "express": "^4.16.4",
     "express-jwt": "^5.3.1",
     "history": "^4.7.2",
     "if-env": "^1.0.4",
     "jwks-rsa": "^1.4.0",
     "moment": "^2.24.0",
-    "mongoose": "^5.4.16",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-geocode": "^0.1.2",
-    "react-google-autocomplete": "^1.0.18",
-    "react-google-maps": "^9.4.5"
+    "mongoose": "^5.4.16"
   }
 }

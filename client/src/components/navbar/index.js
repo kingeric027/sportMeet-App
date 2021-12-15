@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import auth0Client from "../../Auth/authentication";
+import { useAuth0 } from '@auth0/auth0-react';
 import "./style.css";
 
 const HomeLink = withRouter(({ history }) => (
@@ -35,8 +34,9 @@ const FindLink = withRouter(({ history }) => (
 ))
 
 function NavBar(props) {
+  const { loginWithRedirect, isAuthenticated, logout, user } = useAuth0();
   const signOut = () => {
-    auth0Client.signOut();
+    logout();
     props.history.replace('/');
   };
   return (
@@ -45,13 +45,13 @@ function NavBar(props) {
       <StartLink></StartLink>
       <FindLink></FindLink>
       {
-        !auth0Client.isAuthenticated() &&
-        <button className="btn btn-dark log-btn" onClick={auth0Client.signIn}>Sign In</button>
+        !isAuthenticated &&
+        <button className="btn btn-dark log-btn" onClick={() => loginWithRedirect()}>Sign In</button>
       }
       {
-        auth0Client.isAuthenticated() &&
+        isAuthenticated &&
         <div>
-          <label className="mr-2 text-white">{auth0Client.getProfile().name}</label>
+          <label className="mr-2 text-white">{user.name}</label>
           <button className="btn btn-dark log-btn" onClick={() => { signOut() }}>Sign Out</button>
         </div>
       }

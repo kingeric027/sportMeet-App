@@ -1,17 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import auth0Client from '../../Auth/authentication';
 import "./style.css";
 
+const Home = () => {
 
-class Home extends Component {
-    componentDidMount(){
-        if(!auth0Client.isAuthenticated()){
-            auth0Client.signIn();
-        }
-    }
-    render() {
-        return (
+    return (
         <div>
             <div className="jumbotron jumbotron-fluid">
                 <div className="container">
@@ -30,8 +23,7 @@ class Home extends Component {
             </Link>
             </div>
         </div>
-        )
-    }
+    )
 }
 
 export default Home;

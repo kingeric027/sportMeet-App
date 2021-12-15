@@ -6,7 +6,6 @@ import Find from "./pages/find/index";
 import Callback from './pages/callback/index';
 import ThisGame from './pages/ThisGame/index';
 import './App.css';
-import auth0Client from './Auth/authentication';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +20,7 @@ class App extends Component {
       return;
     }
     try {
-      await auth0Client.silentAuth();
+      //await auth0Client.silentAuth();
       this.forceUpdate();
     } catch (err) {
       if (err.error !== 'login_required') console.log(err.error);

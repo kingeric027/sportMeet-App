@@ -3,6 +3,8 @@ import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "reac
 import Geocode from "react-geocode";
 Geocode.setApiKey("AIzaSyCyfDoFnHAEssmLqnPDD_5qwrNyQk-8_nw");
 Geocode.enableDebug();
+
+
 class FindGameMap extends React.Component {
   constructor(props) {
     super(props);
@@ -31,7 +33,6 @@ class FindGameMap extends React.Component {
     */
 
   componentDidMount() {
-    console.log(this.props.gamesArray)
     if (navigator && navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(pos => {
         const coords = pos.coords;
@@ -165,8 +166,6 @@ class FindGameMap extends React.Component {
     * @param event
     */
   handleToggleOpen(games) {
-    console.log('Clicked!');
-    console.log(this.state.windowLocation);
     this.setState({
       windowLocation: {
         lat: games.location.lat,

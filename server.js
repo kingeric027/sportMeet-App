@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const jwt = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+require('dotenv').config()
 
 const PORT = process.env.PORT || 3001;
 
@@ -24,7 +25,8 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://kingeric027:zaLMePlyvpvfrIV7@cluster0.xpt8e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+var MONGODB_URI = process.env.REACT_APP_MONGODB_URI //|| "mongodb+srv://kingeric027:zaLMePlyvpvfrIV7@cluster0.xpt8e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+
 
 mongoose.Promise = Promise;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
@@ -33,5 +35,6 @@ mongoose.set('useCreateIndex', true)
 // Start the API server
 app.listen(process.env.PORT || 3001, () => console.log('Server has started'));
 {
+  console.log(process.env)
   console.log("yayy it works")
 }

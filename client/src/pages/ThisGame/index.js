@@ -1,82 +1,80 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { useCallback, useEffect, useState } from "react";
 import { Row, Col, Container } from "../../components/Grid";
 import API from "../../utils/API";
 import Navbar from "../../components/navbar/index";
-import auth0Client from "../../Auth/authentication";
 import moment from 'moment';
 import "./style.css";
-class ThisGame extends Component {
-    state = {
+import { useAuth0 } from "@auth0/auth0-react";
+
+
+const ThisGame = (props) => {
+    const {isAuthenticated, loginWithRedirect, user} = useAuth0()
+    const[gameState, setGameState] = useState({
         game: {},
         currentComment: "",
         commentsArray: [],
         playersArray: []
-    };
+    })
 
-    componentDidMount() {
-        if (!auth0Client.isAuthenticated()) {
-            auth0Client.signIn();
-        }
-        this.loadGame();
-    }
-
-    loadGame = () => {
-        console.log("Game ID: " + this.props.match.params.id)
-        API.getGame(this.props.match.params.id)
-            .then(res => this.setState({
+    const loadGame = useCallback(() => {
+        API.getGame(props.match.params.id)
+            .then(res => setGameState({
                 game: res.data,
                 commentsArray: res.data.comments,
                 playersArray: res.data.playersArray
             }))
             .catch(err => console.log(err));
-    }
+    }, [])
 
-    updateGame = index => {
-        const gameToChange = this.state.games[index];
-        console.log(gameToChange);
+    useEffect(() => {
+        if(!isAuthenticated) {
+            loginWithRedirect()
+        }
+        loadGame()
+    }, [isAuthenticated, loginWithRedirect, loadGame])
+
+    const updateGame = (index) => {
+        const gameToChange = gameState.games[index] //this.state.games[index];
         gameToChange.players = gameToChange.players - 1;
-        console.log("new players: " + gameToChange.players);
         API.updateGame(gameToChange._id, gameToChange)
-            .then(res => this.loadGame())
+            .then(res => loadGame())
             .catch(err => console.log(err));
     }
 
-    handleInputChange = event => {
+    const handleInputChange = (event) => {
         const { name, value } = event.target;
-        this.setState({
+        setGameState({
+            ...gameState,
             [name]: value
         });
     };
 
 
-    handleComment = (e) => {
+    const handleComment = (e) => {
         e.preventDefault();
-        const user = auth0Client.getProfile().name;
-        const gameToChange = this.state.game;
+        const gameToChange = gameState.game;
         gameToChange.comments.push({
             user: user,
-            text: this.state.currentComment
+            text: gameState.currentComment
         });
         API.updateGame(gameToChange._id, gameToChange)
-            .then(res => this.loadGame())
+            .then(res => loadGame())
             .catch(err => console.log(err));
     }
 
-    render() {
-        return (
-            <div>
+    return (
+<div>
                 <Navbar></Navbar>
                 <Container>
                     <Row>
                         <Col size="md-6">
-                            <h3>{this.state.game.user}'s {this.state.game.sport} game</h3>
-                            <h5>{moment(this.state.game.date).format("MMM Do YYYY")}, {this.state.game.time}</h5>
-                            <h5>{this.state.game.address}</h5>
-                            <p>Skill Level: {this.state.game.skill}</p>
+                            <h3>{gameState.game.user}'s {gameState.game.sport} game</h3>
+                            <h5>{moment(gameState.game.date).format("MMM Do YYYY")}, {gameState.game.time}</h5>
+                            <h5>{gameState.game.address}</h5>
+                            <p>Skill Level: {gameState.game.skill}</p>
                             <p>Players:</p>
                             <ul>
-                                {this.state.playersArray.map(p => {
+                                {gameState.playersArray.map(p => {
                                     return (
                                         <li>{p}</li>
                                     )
@@ -87,7 +85,7 @@ class ThisGame extends Component {
                             <div class="card divCard">
                                 <h5 class="card-header">Chat Box</h5>
                                 <div class="card-body">
-                                    {this.state.commentsArray.map(c => {
+                                    {gameState.commentsArray.map(c => {
                                         return (
                                             <div className="commentDiv">
                                                 <p className="commentP">
@@ -103,17 +101,17 @@ class ThisGame extends Component {
                             </div>
                             <textarea
                                 name="currentComment"
-                                value={this.state.currentComment}
-                                onChange={this.handleInputChange}
+                                value={gameState.currentComment}
+                                onChange={handleInputChange}
                                 placeholder="Chat!">
                             </textarea>
-                            <button type="button" class="btn btn-block commentBtn" onClick={this.handleComment}>Submit</button>
+                            <button type="button" class="btn btn-block commentBtn" onClick={handleComment}>Submit</button>
                         </Col>
                     </Row>
                 </Container>
             </div>
-        )
-    }
+    )
 }
+
 
 export default ThisGame;

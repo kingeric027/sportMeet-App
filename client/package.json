@@ -4,15 +4,16 @@
   "private": true,
   "proxy": "http://localhost:3001",
   "dependencies": {
+    "@auth0/auth0-react": "^1.8.0",
     "auth0": "^2.14.0",
     "auth0-js": "^9.10.0",
     "axios": "^0.18.0",
     "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "react-dom": "^16.14.0",
     "react-geocode": "^0.1.2",
     "react-google-autocomplete": "^1.0.18",
     "react-google-maps": "^9.4.5",
-    "react-router-dom": "^4.3.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "2.1.5"
   },
   "scripts": {
@@ -29,5 +30,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "eslint-plugin-react-hooks": "^4.3.0"
+  }
 }
